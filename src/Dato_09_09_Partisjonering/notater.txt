@@ -1,0 +1,75 @@
+09.09.2024
+Kapittel 1.3.9-1.3.13
+
+Partisjonering
+Å partere noe: Å dele noe i biter.
+Eks: Se for deg en liste med bokstaver.
+Vil dele opp i vokal vs konsonant.
+En viktig detalj: konsonant  ikke vokal
+Ide: [‘a’, ‘c’, ‘d’, ‘e’, ‘h’, ‘i’, ‘k’, ‘o’, ‘c’, ‘r’, ‘u’, ‘z’]
+	[‘a’, ‘e’, ‘i’, ‘o’, ‘i’, ‘u’, | ‘c’, ‘d’, ‘h’, ‘k’, ‘r’, ‘z’] (Fornøyd så lenge alle vokaler er til venstre for alle konsonanter. Trenger ikke å være sortert.)
+En mulig algortime: Lag en ny tom liste:
+       [                                ]
+Gå gjennom originale lista, legg vokaler i starten og konsonanter i slutten
+	[‘a’, ‘e’, …………………. , ‘d’, ‘c’] (Avsluttes når vokal pekeren peker på en konsonant og samme for konsonant pekeren.)
+
+
+
+«Bedre» algrotime:
+-	Har en venstrepeker i starten av lista
+-	Har en høyrepeker i slutten av lista
+Øker venstrepeker til vi finner en konsonant. Minker høyrepeker til vi finner en vokal. Bytter plass om pekerne ikke har passert hverandre.
+{‘a’, ‘c’, ‘d’, ‘e’, ‘n’, ‘i’, ‘k’, ‘o’, ‘i, ‘r’, ‘u’, ‘z’}
+         |                                                           |
+{‘a’, ‘u’, ‘d’, ‘e’, ‘n’, ‘i’, ‘k’, ‘o’, ‘i’, ‘r’, ‘c’, ‘z’}
+                 |                                     |               ……. {‘a’, ‘u’, ‘i’, ‘e’, ‘o’, ‘i’, ‘k’, ‘o’, ‘c’, ‘r’, ‘u’, ‘z’}
+
+Problem:
+Hva om alle element er vokaler?
+{‘a’, ‘e’, ‘i’, ‘o’}
+   |                  |                Problem: Treffer erVokal(tabell[4]) utenfor tabell
+Sleg inn en v<h – test før vi sjekker tabell[v]
+Når java sjekker «Er 4 <= 3 og er tabell[4] en vokal?»,
+Vil java aldri kjøre siste biten.
+While(v <= h && erVokal(tabell[v]))
+
+Påstand: Dette er essensielt ideen bak quicksort.
+Vi velger et pivotelement, og partisjonerer tabellen i  alt mindre enn pivotelementet og alt større enn pivotelementet.
+Om vi er uheldig kan en av disse bitene bli tom.
+Hver gjennomgang gjør ingenting.
+Eks: Velge alltid midterste element som mitt pivotelement.  erMindreEnnPivot(tall, pivot)
+[1, 5, 7, 0, 4, 3, 6] (Her blir 0 pivotelement.)           Etter en partisjonering ser lista slik ut.
+Triks: Sorter i:
+-	Først «mindre enn pivot»  quicksort
+-	Så «pivot»  riktig plassert
+-	Til slutt «større eller lik pivot»   quicksort
+
+Har laget en partisjoneringsalgortime som kun kan partere en liste med bokstaver i vokaler/konsonanter.
+Se for deg at jeg vil lage en ny partisjonering, i store bokstaver, så små.
+Se koding for et «triks».
+
+Rotering av lister:
+Tabell med verdier:
+     {‘A’, ‘E’, ‘I’, ‘O’, ‘U’, ‘Y’}
+Forskyve en tabell:
+     {?, ‘A’, ‘E’, ‘I’, ‘O’, ‘U’}
+       | , en tolkning: Fyll på med en ‘A’ eller fyll på med den «tomme bokstaven» eller ta verdien som falt av og plasser foran.
+{‘Y’, ‘A’, ‘E’, ‘I’, ‘O’, ‘U’} Roterer som en klokke
+En morsom og effektiv algoritme for å rotere flere steg.
+{‘A’, ‘E’, ‘I’, ‘O’, ‘U’, ‘Y’}
+Rotere tre steg:
+	{‘O’, ‘U’, ‘Y’, ‘A’, ‘E’, ‘I’}
+Metode:
+-	Flipp tabellen. (Reverser)
+-	Flipp første bit
+-	Flipp siste bit
+{‘A’, ‘E’, ‘I’, ‘O’, ‘U’, ‘Y’}
+	{‘Y’, ‘U’, ‘O’, ‘I’, ‘E’, ‘A’}
+	{‘O’, ‘U’, ‘Y’, ‘I’, ’E’, ‘A’}
+	{‘O’, ‘U’, ‘Y’, ‘A’, ‘E’, ‘I’}
+Hvordan reversere en tabell enkelt?
+-	V-peker på starten      bytt(tabell, v, h)
+-	H-peker på slutten     v++
+-	                                            h—
+-	                                            Stopp når v>h
+

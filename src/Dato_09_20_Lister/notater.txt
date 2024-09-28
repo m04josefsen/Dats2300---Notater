@@ -1,0 +1,58 @@
+Lister og listestrukturer:
+    - Et steg ned:
+        - Har en beholder
+        - Legger elementer i beholderen, som et interface, hvilket funksjoner burde en beholder ha
+
+        - interface Beholder <T> { // Collections i standard Java
+            boolean leggInn(T t);
+            boolean fjern(T t);
+            int antall();
+            boolean tom(T t);
+            boolean inneholder();
+            void nullstill();
+        }
+
+        Har nå en type beholder vi kaller en liste:
+            - Har elementer som ligger på rad
+
+        interface List<T> extends Beholder<T< {
+            boolean leggInn(int indeks, T t);
+            T hent(int indeks);
+            boolean oppdater(int indeks, T t);
+            boolean fjern(int indeks);
+            int indeksTil(T t);
+        }
+
+        Hvordan lage en god liste struktur?
+            - Eks. arrays / tabeller
+                - Hvordan funker arrays?
+                    - int[] tabell = new int[7];
+
+        - Vår første listestruktur:
+            - Tabelliste -> Arraylist
+            - Ide: vi lagrer dataen i en for lang tabell. Om vi bruker opp denne, så lager vi en enda lengre, og kopierer over
+
+    - Lenket Liste
+        - 3 -> 5 -> 2 -> 7 -> null
+        - Første element = hode
+        - Hvert element vet
+        - Fordel: Raskt og enkelt å legge inn en ny verdi
+        - Minus: Tregt å hente verdi på plass j
+
+        - Dobbelt lenket liste hjelper (kan gå tilbake også)
+            - 3 <-> 5 <-> 2 <-> 7 <-> (peker på forrige 2 her)
+                - Første element = hode
+                - Siste element = hale
+
+            - Implementasjon: // Intern klasse
+                class LenketListe {
+                    private class Node{
+                        T verdi;
+                        Node neste;
+
+                        Node(T verdi) {
+                            this.verdi = verdi;
+                            neste = null; // Må ikke skrive, bli automatisk satt til null
+                        }
+                    }
+                }

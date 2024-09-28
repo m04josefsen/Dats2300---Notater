@@ -1,0 +1,55 @@
+Iterator
+    - Hva betyr det å iterere?
+    - Gitt en beholder, vil vi ha en måte å gå gjennom alle elementene
+      tenk type for-løkke:
+        - int[] a = {3, 1, 5, 7, 9 ,14}
+          for(int i = 0; i < a.length; i++) {}
+          for each løkke: for(T t : a) {}
+
+   - Har to interfaces:
+    - Iterable<T> : Iterator<T> iterator()
+    - Iterator<T> : boolean hasNext();
+                    T next();
+    - Ide: kan nå gå gjennom beholderen ved å gjøre:
+        - Iterator<T> it = a.iterator;
+
+          while(it.hasNext() {
+            T t = it.next();
+            ...
+          }
+
+        - Dette er nøyaktig det Java gjør når du skriver for(T t : a);
+        - Typisk lager vi en Iterator som en indre klasse.
+
+    - Eks: TabellList
+
+    - Comparable vs Comparator
+        - Comparable betyr at disse elementene kan sammenlignes:
+            - int s.compareTo(T t) for ut et tall
+                - < 0 hvis es < t
+                - = 0 hvis s == t
+                - > 0 hivs s > t
+        - Hva om jeg har en klasse som ikke typisk burde sammenliknes, men jeg vil sammenlikne likevel
+            - Alternativt: Hva om jeg vil sammenlikne objekter på en ikke-standard
+                - Eks. class Person{String navn, int alder, int inntekt}
+                    - Noen andre vil gjerne sammenligne Personer basert på sin inntekt.
+                - Lager da en Comparator<Person>
+                - Vi lager en funksjon compare(Person p1, Person p2),
+                    oppfører seg som om den var en passelig p1.compareTo(p2);
+
+            - Istedenfor at vi har funksjon
+                <T extends Comparable<? super T> maks(T[] t) {}
+            - lager vi
+                <T> maks(T[] t, Comparator<? super T> c) {
+                    c.compare(t1, t2)
+                }
+            - Om noe allerede var Comparable, så ville det vært litt dritt å måtte skrive en slik Comparator for hånd
+                Har funksjonen Comparator.naturalOrder() som gir riktig sammenlikning
+
+        - Dette er en functional Interface
+            interface Comparator<T> {
+                int compare(T t1, T t2);
+                default static Comparator<T> naturalorder(T extend Comparable) {
+                    return (t1, t2) -> t1.compareTo(t2);
+                }
+            }

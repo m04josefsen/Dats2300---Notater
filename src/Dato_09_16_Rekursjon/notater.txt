@@ -1,0 +1,109 @@
+Rekursjon:
+    - Ide: gjør litt av et problem
+           gjør resten av problemet
+    - Ide: lag en funksjon som løser problemet ved å kalle på seg selvemd "enklere" input
+
+    - Eks: Vi skal lage en funksjon sumTil(n)
+        Regne ut 1 + 2 + 3 + ... + n
+
+        sum(6) : 1 + 2 + 3 + 4 + 5 + 6
+
+        public static int sumTil(int n) {
+            if(n < 1) {
+                throw new IllegalArgumentException;
+            }
+
+            if(n == 1) {
+                return 1;
+            }
+
+            return n + sumTil(n-1);
+        }
+
+    - Hva skjer inne i datamaskinen når vi kjører en rekursiv funksjon:
+        - Har en Funtion Stack <-> Funksjons stabel (boken: stakk)
+
+        - Kjører sumTil(7):
+            -sumTil(1) -> blir ferdig med denne, fjernes fra stabelen, går tilbake til forrige element
+            -sumTil(2)
+            -sumTil(3)
+            -sumTil(4)
+            -sumTil(5)
+            -sumTil(6)
+            -sumTil(7)
+
+    - Eks: Fibonaccitall:
+        - public static int fib(int n) {
+            if(n < 0) {
+                throw new IllegalArguemnt...;
+            }
+            if(n < 2) {
+                return 1;
+            }
+
+            return fib(n-1) + fib(n-2);
+        }
+    - Halerekursjon:
+        - Når det siste vi gjør er å kalle funksjonen på nytt
+        - Vi kan gjøre sumTil til å bli halerekursjon
+            - public static sumTilHale(int n, int mellomSum) {
+                if(n < 1) {
+                    throw new IllegalArugmentException();
+                }
+                if(n == 1) {
+                    return mellomSum + 1;
+                }
+
+                return sumTil(n-1, mellomSum + n);
+
+            }
+
+            public static sumTilHale(int n) {
+                return sumTilHale(n, 0);
+            }
+
+    - Eks: Hanois Tårn
+        - Flytt alle bortsett fra nedertse disk til midertste med siste stang som hjelp
+        - Flytt nederste disk til siste stang
+        - Flytt alle diskene på miderste bortsett fra nederste til siste stang med hjelp av første stang
+
+        public static void hanoisTårn(int n, char fra, char hjelp, char til) {
+            if(n <= 0) {
+                return;
+            }
+
+            hanoisTårn(n-1, fra, til, hjelp);
+            System.out.println("Flytt disk fra: " + fra + ", til: " + til + "");
+            hanoisTårn(n-1, hjelp, fra, til);
+        }
+
+    - Både quickSort og mergeSort er rekursive algoritmer
+
+    - Hvordan gjør vi rekursiv kode iterativ:
+        - Halerekursjon:
+            - Siste tingen vi gjør er å kalle metoden på nytt, men med nye variabler.
+            - Hvorfor ikke bare selv hoppe til starten av metoden, og rename variablene direkte
+            -sumTilHale(int n, int mellomSum) {
+                if(n == 1) {
+                 return mellomSum + 1;
+                }
+
+                return sumTilHale(n-1, mellomSum + n);
+            }
+
+            -sumTilIterativ(int n, int mellomSum) {
+                while(true) {
+                    if(n == 1) {
+                        return mellomSum + 1;
+                    }
+                    n -= 1;
+                    mellomSum += n;
+                }
+            }
+            - Kan også bruke:
+                int mellomSum = 0;
+                while(n > 0) {
+                    n--;
+                    mellomSum += n;
+                }
+                return mellomSum;

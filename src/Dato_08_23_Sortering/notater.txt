@@ -1,0 +1,86 @@
+Algoritmekompleksitet:
+    -Ide: Vi bryr oss ikke om nøyaktig hvor mange steg som brukes, men bryr oss typisk
+     om hvordan antall steg endres når vi sender inn mer data
+     I vårt eksempel vil en 10x så stor liste ta 10x så lang tid
+     Det finnes algoritmer hvor om vi sender inn en 10x så stor liste, så vil det ta 100x så lang tid
+
+     Notasjon:
+        - En algoritme er O(N) hvis det viktigste leddet i utregningen av antall steg er av typen K * n
+        - Eks: vår maks algorimte var best case 4n + 1 (4N viktigste ledd), O(n)
+            - Best case av orden O(n)
+            - Worst case: 6n - 1, også O(n)
+            - Average case: 4n + 2ln(n) + 0.157
+                - Eks: n = 1000, 4 * 1000 + 2ln(1000) + 0.17 = 4013.97
+                - Eks: n = 1000000, 4 * 1000000 + 2ln(1000000) + 0.17 = 4000027.78
+                - Viktigste ledd er derfor 4n leddet, O(n) kompleksitet
+
+     Typiske kompleksiteter:
+        - O(1) - Konstant tid
+            - Eks. Finn første element i en liste
+            - Eks. Finn et spesifikt element i en liste (Best case)
+
+        - O(log(n)) - Logaritmisk tid
+            - Eks. Binær søk i en sortert liste
+
+        - O(n) - Linær tid
+            - Eks. Finn maks element i en liste
+            - Eks. Finn et spesifikt element i en list (Avg og Worst case)
+
+        - O(n * log(n)) -
+            - Eks. Sorterings algoritmer
+
+        - O(n^2) - Kvadratisk tid
+            - Eks. Sorterings algoritmer
+
+     Binærsøk i sortert liste
+        - Eks. Sortert tabell med tall: {1, 3, 4, 7, 10, 13, 25, 27, 30, 41, 53}
+        - Oppgave. Finn hvor i tabellen er tallet 30
+        - Løsning. Ser hva som er midt i lista (indeks 5 -> 13, vet nå om vi skal sjekke høyre eller venstre av listen)
+        - Ny oppgave: Finn 30 i tabellen: {25, 27, 30, 41, 53}
+            - Sjekker midten igjen, og finner 30
+        - Worst case på 11 elementer må vi halvere lista 4 ganger
+
+        -Eks. Liste starter med 1000 elementer
+            - 1 steg: 500 elementer
+            - 2 steg: 250 elementer
+            - 3 steg: 125 elementer
+            - 4 steg: 62 (runder ned fra 62.5) elementer
+            - 5 steg: 31 elementer
+            - 6 steg: 15 elementer
+            - 7 steg: 7 elementer
+            - 8 steg: 3 elementer
+            - 9 steg: 1 element
+            - 10 steg: sjekker elementet
+
+     Hvorfor dukker logaritmer opp i programmering?
+        - 10^x = k, Hva må x være, gitt k?, Svar: log(k) = x
+        - 2^x = k, Hva må x være, kitt k=, Svar: log2(k) = x -> (log(k)) / (log(2))
+
+        - Hvor mange ganger må jeg dele k på 2, før jeg får et svar mellom 0 og 1?
+            - Løser: 1 > k / 2^x -> Får da log2(k)
+
+Vår første datastruktur
+    - Ide: Vi har en tabell med tall
+        Vil lage dem på en måte osm gjør det raskt å finne makselementer, og også
+        raskt å finne
+        f.eks nest største element også
+
+    - Et mulig svar: Lage dem ferdig sortert
+        Gjør at det er litt stress å legge til nye elementer
+        Om vi skulle lagra fotballklubber, og vil kunne finne beste klubb
+        Hva med å bare lagre hele turneringsstrukturen
+
+Datastruktur:
+    - Ide: En måte å lagre data på
+           som vil ha sine fordeler go ulempler
+           Også tabeller er en datastruktur
+    - Neste spørsmål: Implementasjon
+
+    -Turneringstree: En mulig implementasjon
+        {X, 7, (4, 7), (4, 3, 7, 5), (4, 2, 1, 3, 2, 7, 5, 0), (4, 4, 2, -1)}
+
+        (TODO: Turneringstree illustrasjon, screen av forelesningstnotater)
+
+        - Til venstre: Posisjonen dobles
+        - Til høyre: Posisjonen dobles + 1
+        - dvs. vi kan navigere treet ved å doble / halvere indekser i liste

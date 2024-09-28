@@ -1,0 +1,50 @@
+Stabler og køer (Stack and Queues)
+    - Strukturer hvor vi kan legge ting inn og ta ting ut, men har "mindre kontroll" enn i en liste
+
+    - FIFO-kø (First in first out) = "Vanlig" kø
+    - FILO-kø (First in last out) = Stabel / stack
+    - Finnes også en prioritets-kø, hvor elemente blir prioritert i en rekkefølge som ikke bestemmes av når de ble lagt inn
+
+    - i andre programmeringsspråk, så ha rslike køer ofte tre metoder:
+        - Push -> legg inn
+        - Pop -> ta ut
+        - Peek -> "nytt"
+
+    - Java Stack er ikke anbefalt å bruke, så disse metodene vil ha andre navn for oss
+
+    Har også dobbelt-sidet kø, funker som både stabel og kø samtidig.
+
+    Implementasjon av Stabel:
+        - TabellListe
+            - Sett inn: O(1) best og avg case, O(n) worst case (må kopiere listen og doble den)
+            - Ta ut: alltid O(1)
+
+        - LenketList
+            - Sett inn: O(1)
+            - Ta ut: O(1)
+
+    Implementasjon av Kø:
+        - Prøver å bruke en enkelt lenket liste:
+            - Burde vi legge inn foran og ta ut bak eller omvemdt?
+            - Burde introduserer en hale-peker
+
+            - Å ta ut fra slutten er tidskrevende og må da gjennom listen pga ingen .forrige
+
+        - Hva med å legge inn på slutt og ta ut fra starten?
+            - Bedre fordi trenger bare tilgang til siste noden
+            - Lager ny node som peker på null, gjør at gamle halen peker på den nye noden, og hale pekeren peker på den nye noden.
+
+        - Kø via en tabell:
+            - Legg inn sist, og ta ut sist er O(1)
+
+            - Ser at å legge inn på starten er tregt, alle elementer må flyttes til høyre
+            - Ser også at å fjerne fra starter er tregt, alle elementer må flyttes til venstre
+
+            - Kan vi gjøre noe lurt for å unngå dette problemet?
+                - Hva om å bare ikke gidde å flytte verdiene mot venstre etter å ha tatt ut?
+                  Men da husker hvor den "ekte" køen starter
+                - Nytt problem:
+                    - Plass ineffektivt
+
+                - Ser at dette kna også brukes til å lage en dobbelt sidig kø
+                - Eng: Double Ended Queue -> Deque -> utalles Deck

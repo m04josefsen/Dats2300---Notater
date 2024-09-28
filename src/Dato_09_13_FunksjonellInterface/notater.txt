@@ -1,0 +1,44 @@
+Generisk kode (i Java):
+    - Vi har lagd:
+        - void bytt(int[] liste, int i, int j){
+            int temp = liste[i];
+            liste[i] = liste[j]
+            liste[j] = temp;}
+        - void bytt(char[] liste, int i, int j){
+                      char temp = liste[i];
+                      liste[i] = liste[j]
+                      liste[j] = temp;}
+    - Problem: litt forksjellig input, ellers lik kode
+    - Java har en løsning, i de fleste situasjoner
+    - Ide: sier at metode tar inn en type T, men sier ikke hva T egentlig er
+        - void <T> bytt(T[] liste, int i, int j) {
+            T temp = liste[i];
+            liste[i] = liste[j];
+            liste[j] = temp;
+        }
+        - skriver så bytt<String> (String[] liste, i, j)
+
+    - Alternativ:
+        - void bytt(Object[] liste, int i, int j) {
+            Object temp = liste[i];
+            liste[i] = liste[j]
+            liste[j] = temp;
+        }
+    - eks: Ser for oss en klasse som heter Boks, den lagrer et element, da kan hente den ut.
+           Vi vil kunne legge essensielt hva som helst i en slik boks. (se forelesning for eks)
+        - Problem: T kan være hvilken som helst klasse, men må være en klasse
+            - int, double, char -> ikke klasser
+            - Kan ikke skrive Boks<int>...
+            - Løsning: bruk -> Interger, Double, Character
+
+    - Problem med maks: vil sammenligne elemente, men kan vi elementene sammenlignes?
+        - I Java: metoden compareTo: a.compareTo(b),
+
+        - Inteface Comparable<T>
+            - int compareTo(T other);
+            - Må si ifra til maks at T er av type Comparable
+
+    - Boka foreslår: extends Comparable<? super T>
+        - Skriver T extends Comparable<T>, ser Java etter spesifikt klassesn T har comparable <T>,
+            men hva om vi har over/underklasser, og sammenikning kanskje går begge veier.
+            Comparable<? super T> betyr at vi godtar at T er comparable <S> for alle klasser som er over klasser av T

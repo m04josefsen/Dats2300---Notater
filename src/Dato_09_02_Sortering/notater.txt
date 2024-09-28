@@ -1,0 +1,64 @@
+Sorteringsalgoritmer:
+ - Sortert liste: En inversjon er to verdier i en liste hvor "venstre" er større en høyre
+    - eks: Tabell a = {2, 1, 3, 4, 7, 5, 4, 1}
+        - {2,1}, {7,5}, {5,4}, {4,1} er inversjoner, må ikke være siden av hverandre, men det er de som er de viktige inversjonene
+    - Vi definerer at en liste er sortert dersom den har 0 inversjoner
+    - Ser her at å sjekke om en liste er sortert burde være 0(n)
+
+ - Bubble sort
+    - Ide: vi går gjennom listen og hver gang vi ser en inversjon bytter vi plass på de to elementene (av inversjoner ved siden av hverandre)
+           Går så gjennom på nytt, fortsett til det er 0 inversjoner
+    - eks: {2, 1, 3, 4, 7, 5, 4, 1}
+        - Første gjennomgang: {1, 2, 3, 4, 5, 4, 1, 7} // Vet at det største elementet må være sist
+        - Andre gjennomgang: {1, 2, 3, 4, 4, 1, 5, 7}
+        - Tredje gjennomgang: {1, 2, 3, 4, 1, 4, 5, 7}
+        - Fjerde gjennomgang: {1, 2, 3, 1, 4, 4, 5, 7}
+        ...
+        - Sjette gjennomgang: {1, 1, 2, 3, 4, 4, 5, 7}
+
+    - Hvor rask er denne algoritmen:
+        - Best case: listen er allerede sortert: O(n)
+        - Worst case: Omvendt sortert liste: O(n^2)
+        - Average case: O(n^2)
+
+ - Merge sort
+    - Ide:
+        - Del lista i to
+        - Sorter hver bit
+        - Slå sammen de to sorterte bitene
+    - eks: {2, 1, 3, 4, 7, 5, 4, 1}
+        - {2, 1, 3, 4} og {7, 5, 4, 1}
+        - {1, 2, 3, 4} og {1, 4 ,5 7} // Bruker merge sort på de to listene for å sortere til du har 1 eller 0 elementer igjen
+            - {2, 1} og {3, 4} - {1, 4} og {5, 7}
+                - {2} og {1} - {3} og {4} - {1} og {4} - {5} og {7}
+                    {1, 2} - {3, 4} - {1, 4} - {5, 7} osv...
+        - Setter sammen, ser på starten av hver liste, 1 i liste 1 er minst, går til indeks 1 i liste 1,
+          og ser at indeks 0 i liste 2 er minst og setter inn
+        {1, 1, 2, 3, 4, 4, 5, 7}
+
+    - Hvor rask er denne algoritmen:
+        - O(nlogn) i best case, worst case, og average case
+
+    - Et problem med mergesort er at den ikke er stabil
+        - {2, 1a, 3, 4a, 7, 5, 4b, 1b}
+        - Etter sortering, vil rekkefølgen av på 1erne og 4erne være den samme
+            - dvs {1, 1b, 2, 3, 4a, 4b, 5, 7}
+        - Med mergesort er vi ikke garantert dette, med bubble sort er vi garantert dette
+
+   - Quick sort
+    - Ide:
+        - Velg et tilfeldig element i lista (pass på at dette elementet er rett sortert)
+        - Sorter alt til venstre, og alt til høyre for det valgte elementet
+
+    - eks: {2, 1, 3, 4, 7, 5, 4, 1}, velger 4 som pivot element
+        - ser hva som er på riktig side, får da {2, 1, 3, 1, 4, 7, 5, 4}, 4 er nå riktig sortert
+            - lager du lister og ser på 1 og 5,
+            - fortsetter samme prosess
+            -> {{1}, 2, 3, 1, {4}, {4}, {5}, {7}}
+            - velger 3 som pivot, flytter 1 med 3, vet at 3 nå sortert -> {1, 2, 1, 3, 4, 4, 5, 7}
+            - {1, 1, 2, 3, 4, 4, 5, 7
+
+    - Hvor rask er denne algoritmen:
+        - Best case: O(n)
+        - Average case: O(nlogn)
+        - Worst case: O(n^2)
