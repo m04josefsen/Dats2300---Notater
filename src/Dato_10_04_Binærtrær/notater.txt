@@ -1,0 +1,121 @@
+Binærtrær:
+    - Først trær:
+        - Navnet kommer fra slekstrær
+        - Tegner trær typisk opp-ned
+        - Beholder likevel ideen om at nedover i treet : barn
+                                       oppover i treet : foreldre
+
+    - Et spesifikk type trær: Binæretrær
+        - Krav:
+            - Hver node har maks to barn
+            - Hver node har en forelder, bortsett fra rot noden (starten)
+
+        - Struktur : Rotnode -> venstre barn og høyre barn
+                     De uten barn = bladnoden
+
+            - Rotnode er på nivå 0, 0 steg fra rotnode -> rotnode
+
+        - Et tre har 15 noder
+            - Hva er færrest antall nivåeer treet kan ha? 4
+            - Hva er flest antall nivåer treet kan ha? 15, siste nivå vil være nivå 14 pga finnes nivå 0
+
+            - Generell formel: flest nivå: n
+                               færrest nivå: ca log2(n), rundet opp
+
+    - Binær trær er effektive om
+        - De er "balansert"
+        - Vu vet gvir vi skal finne et element
+
+    - Posisjoner, starter med 1, vesntre barn er 2, høyre er 3 osv
+
+        - Merk:
+            - Ikke null-indeksert
+            - Å gå venstre dobler indeksen
+            - Å gå til høyre dobler indeksen + 1
+
+            - eks: høyre - høyre - venstre - høyre
+                1 -> 3 -> 7 -> 14 -> 29
+
+                Hvordan ser 29 ut i to talls systemet
+                     = 1 * 16 + 1 * 8 + 1 * 4 + 0 * 2 + 1 * 1
+                     =11101
+                     Første ener = Gå inn i treet
+                     1 - gå til høyre
+                     0 - gå til venstre
+
+                Hvordan kommer seg til plass 53
+
+                53 = 1 * 32 + 1 * 16 + 0 * 8 + 1 * 4 + 0 * 2 + 1 * 1
+                = 110101
+                Gå inn i treet -> høyre -> venstre -> høyre -> venstre -> høyre
+
+    - Implementasjon:
+        - Metode 1 : legg binærtreet i en tabell:
+            [null, rot, rot.venstre, rot.høyre, ...]
+            Funker hvis det er et balansert tre?
+            Hvis ikke balansert tre, mye null verdier i arrayet eks [null, A, null, B, null ... , C, D, ..., F, ... , G]
+            Bruker mye unødvending plass
+
+        - Metode 2 : som en klasse med noder
+
+            class Binærtre<T> {
+                private class Node {
+                    Node vesntre;
+                    Node høyre;
+                    T verdi;
+                    int posisjon
+                }
+
+                Node rot;
+            }
+
+            fordel: bruker like mye plass uavhengig av hvor balansert treet er
+            ulempe: må faktisk gjennom treet for å finne en node på en spesifikk posisjon
+
+            Å traversere trær (gå gjennom elementene)
+                - En måte: Gå gjennom indeks rekkefølgen
+
+                Hvordan kode dette i et "Nodetre"
+
+                - Ta et element fra køen
+                - Legg elementet barn på køen
+                - Gjør whatever med elementet
+
+                Tre steg:
+                    - Legg til venstrebarn på kø
+                    - Legg til høyrebarn på kø
+                    - Gjør whatever
+
+                    Rekkefølger på "prikk" har ikke noe å si
+
+                    Spørsmål: Hva om vi hadde brukt en stack i stedet?
+
+
+                    Ide: Hva med å bruke rekursjon for å lage stacken for oss
+
+                    void printAlle() {
+                        printEn(rot)
+                    }
+
+                    void printEn(Node n) {
+                        if(n == null) {
+                            return,
+                        }
+
+                        printEn(n.venstre);
+                        printEn(n.høyre);
+                        System.out.println(n.verdi);
+                    }
+
+Dybde først vs Bredde først
+    - Dybde først:
+        - Går alltid dypere inn i labyrinten for å finne riktig vei / verdi
+    - Bredde først:
+        - Sjekker alltid de første nivåene før den går videre
+        - Du vet alltid den korteste veiene først, mens dybde først kan finne en ikke optimal vei
+
+   - Fire måter å gå gjennom treet på:
+        - nivå orden
+        - pre orden
+        - in orden
+        - post orden
