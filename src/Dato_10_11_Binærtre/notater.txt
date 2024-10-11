@@ -1,0 +1,30 @@
+Mer om binærtrær : Spesifikt søkebinærtrær
+    - Spørsmål:
+        - Hvordan legge inn?
+        - Hvordan fjerne?
+        - Hvordan liste opp?
+        - Hvordan finne?
+
+        Plan: finner riktig plass ved å følge høyre/venstre peker, til vi finer det vi leter etter
+
+    - Hvordan fjerne en verdi i et søke binærtre? Spesifikt slik at det fortsetter å være et søkebinætre
+        - Tre muligheter:
+            - En node har ingen barn : Bare fjern noden
+                - Implementasjon: litt mer stress, mye if tester
+
+            - En node har et barn : Får forelder til noden peke på barnet
+
+            - En node har to barn :
+                - Ide: bytt ut noden V, med en annen node som kunne vært samme sted, og slett denne noden i stedet
+                - Må være forrige eller neste i inorden, forrige kan skape problema
+
+                Alle mine venstrebarn er flr meg i inmorden, som jeg er neste i inorden, så kan ikke je ha et venstrebarn
+
+                Hvorfor forrige i inorden ikke funker: Hvis flere identiske verdier
+                I et søkebinært tre er alt til høyre for en node større eller lik, mens til venstre vil kun være mindre
+
+                Kan alltid bruk neste verdi i inorden, men det gjør at algortimen vår er usymmetrisk
+
+                Implementasjon:
+                    Finne neste elemnt i inorden: et steg til høyre, videre så mange steg til venstre som muligfire
+

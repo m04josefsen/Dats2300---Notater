@@ -1,0 +1,20 @@
+Fire måter å gjennom et binær tre:
+    - Nivåorden
+    - Preorden
+    - Inorden
+    - Postorden
+
+    - Tre siste er rekursive, dvs: gjør(n.venstre), gjør noe, gjør(n.høyre)
+
+Tre tilstander trær kan tilfredsstille:
+    - Perfekt : Alle nivå er helt fulle
+        - Antall noder i er perfekt tre er 2^n - 1, der n er antall nivåer
+    - Komplett : Alle nivå bortsett fra muligens det siste er helt fulle, og siste er fult fra venstre
+    - Fullt : Alle noder har nøyaktig 2 eller 0 barn
+
+Binærsøketrær:
+    - Spesifikk type binærtrær hvor for hver node så:
+        - Alle verdier til vesntre for noden (venstrebarnets barn, barnebarn, etc) skal være mindre enn nodens verdi
+        - Alle verdier til høyre for noden skal være større enn eller lik nodens verdi
+
+    - Hvorfor bruke et binærsøketre i stedet for et sortert array? Raskerer å legge inn nye verdier
